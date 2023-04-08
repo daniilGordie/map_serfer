@@ -45,7 +45,7 @@ export const decodePolyline = (encodedPolyline: any, includeElevation: any) => {
             ele += ((result & 1) !== 0 ? ~(result >> 1) : (result >> 1))
         }
         try {
-            let location = [(lat / 1E5), (lng / 1E5)]
+            let location = [(lng / 1E5), (lat / 1E5)]
             if (includeElevation) location.push((ele / 100))
             points.push(location)
         } catch (e) {
