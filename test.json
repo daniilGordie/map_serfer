@@ -1,0 +1,47 @@
+{
+    "routes": [
+        {
+            "weight_name": "auto",
+            "weight": 22234.738,
+            "duration": 23365.316,
+            "distance": 615099.562,
+            "legs": [
+                {
+                    "via_waypoints": [],
+                    "admins": [
+                        {
+                            "iso_3166_1_alpha3": "USA",
+                            "iso_3166_1": "US"
+                        }
+                    ],
+                    "weight": 22234.738,
+                    "duration": 23365.316,
+                    "steps": [],
+                    "distance": 615099.562,
+                    "summary": "I 5 North, I 580 West"
+                }
+            ],
+            "geometry": "czynEhmupU{Sj_@wY_Y[b@cfPzzWwi_@xvUmnBtoB}xdAvxu@scLns@_hIpdPaoe@jgL}gmBb}_Cm~x@bql@anh@v}q@qqoAfjaAuuXxg_@or~AheoAsxbAto]otXfw]cu[rkj@vmHzqgB{mPxlNgeHdaUn}IpuVrHpz@}Lnn@iBiCeEqFwHoK"
+        }
+    ],
+    "waypoints": [
+        {
+            "distance": 15.688,
+            "name": "West 1st Street",
+            "location": [
+                -118.243574,
+                34.052343
+            ]
+        },
+        {
+            "distance": 3.062,
+            "name": "Market Street",
+            "location": [
+                -122.419433,
+                37.774953
+            ]
+        }
+    ],
+    "code": "Ok",
+    "uuid": "3kAQBjHlfVIxblozRKYbarqfnt4zEzqODbLHrgia9OIjxWewvhtQJQ=="
+}

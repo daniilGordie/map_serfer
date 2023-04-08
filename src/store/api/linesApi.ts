@@ -1,12 +1,12 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { DirectionsParams } from '../../types'
+import { Direction, DirectionsParams } from '../../types'
 
 
 export const linesApi = createApi({
     reducerPath: 'linesApi',
     baseQuery: fetchBaseQuery({ baseUrl: 'https://localhost:7167' }),
     endpoints: (builder) => ({
-        getDirections: builder.query({
+        getDirections: builder.query<Direction,DirectionsParams>({
             query: ({ profile, coordinates }: DirectionsParams) => `Directions/${profile}/${coordinates}`,
         })
     })
