@@ -16,7 +16,7 @@ export function Home() {
     const { data, error, isLoading } = useGetDirectionsQuery({ profile, coordinates: `${from};${to}` } as DirectionsParams);
     const mapContainerRef = useRef(null);
     console.log(data);
-    const MAPBOX_TOKEN = "";
+    const MAPBOX_TOKEN = "pk.eyJ1IjoibmlraXRhLWdyeW5jaCIsImEiOiJjbGc3c3RrZnIwcXJrM3VwZHVpOGV6bGM3In0.-3pH-Qz2ddj8fi_Fh91sRQ";
 
 
 
@@ -75,7 +75,7 @@ export function Home() {
                     <option>cycling</option>
                 </select>
                 <label>From:</label>
-                <input placeholder='from' onChange={e => { setFrom(e.target.value) }} ></input>
+                <input placeholder='from' className='m-10' onChange={e => { setFrom(e.target.value) }} ></input>
                 <input placeholder='to' onChange={e => { setTo(e.target.value) }} ></input>
             </div>
             <div id="map" className='w-[800px] h-[600px]'></div>
