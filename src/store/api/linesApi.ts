@@ -12,7 +12,13 @@ export const linesApi = createApi({
         }),
         nameToCoords: builder.query<FeatureCollection, string>({
             query: (name: string) => `PlacesByName/${name}`,
-            transformResponse: (response: any) => JSON.parse(response)
+            transformResponse: (response: any) =>{
+                let res = JSON.parse(response)
+                res.places.forEach((place: any) => {
+                    place.coordinates = place.coordinates.split(',').map((coord: string) => parseFloat(coord))
+                })
+                return res
+            } 
         }),
 
 

@@ -45,21 +45,21 @@ export function MapComponent() {
         console.log("from", from, "to", to, "route", route, "isMapLoaded", isMapLoaded, "map", map)
         if (!isMapLoaded || !map) return;
 
-        if (from.center && !markers.includes(from.center)) {
-            new Marker().setLngLat(from.center).addTo(map);
+        if (from.coordinates && !markers.includes(from.coordinates)) {
+            new Marker().setLngLat(from.coordinates).addTo(map);
             map.flyTo({
-                center: from.center,
+                center: from.coordinates,
                 essential: true,
                 zoom: 5
             });
         }
-        if (to.center) {
-            new Marker().setLngLat(to.center).addTo(map);
+        if (to.coordinates) {
+            new Marker().setLngLat(to.coordinates).addTo(map);
         }
 
         if (route?.geometry && !geometries.includes(route?.geometry)) {
             setGeometries([...geometries, route?.geometry]);
-            route?.geometry && map.addSource(route?.geometry + from.center + to.center, {
+            route?.geometry && map.addSource(route?.geometry + from.coordinates + to.coordinates, {
                 'type': 'geojson',
                 'data': {
                     'type': 'Feature',
@@ -74,9 +74,9 @@ export function MapComponent() {
             route?.geometry && console.log(decodePolyline(route?.geometry, false))
 
             route?.geometry && map.addLayer({
-                'id': route?.geometry + from.center + to.center,
+                'id': route?.geometry + from.coordinates + to.coordinates,
                 'type': 'line',
-                'source': route?.geometry + from.center + to.center,
+                'source': route?.geometry + from.coordinates + to.coordinates,
                 'layout': {
                     'line-join': 'round',
                     'line-cap': 'round'

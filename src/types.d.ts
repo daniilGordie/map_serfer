@@ -8,6 +8,7 @@ export interface Direction {
     waypoints: Waypoint[];
     code?: string;
     uuid?: string;
+    message?: string;
 }
 
 export interface Route {
@@ -47,7 +48,7 @@ export interface Marker {
 export interface FeatureCollection {
     type?: string;
     query?: string[];
-    features?: Feature[];
+    places?: Feature[];
     attribution?: string;
 }
 
@@ -60,7 +61,7 @@ export interface Feature {
     text?: string;
     place_name?: string;
     bbox?: number[];
-    center: number[];
+    coordinates: number[];
     geometry?: Geometry;
     context?: Context[];
 }

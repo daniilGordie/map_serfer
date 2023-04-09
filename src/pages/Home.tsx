@@ -11,13 +11,12 @@ import { ChangeTheme } from '../components/ChangeTheme';
 
 export function Home() {
 
-
     const { from, to, route, profile } = useSelector((state: any) => state.coords);
 
     const dispatch = useDispatch();
     console.log(from, to, route, profile)
 
-    const { data, error, isLoading } = useGetDirectionsQuery({ profile, coordinates: `${from.center};${to.center}` });
+    const { data, error, isLoading } = useGetDirectionsQuery({ profile, coordinates: `${from.coordinates};${to.coordinates}` });
 
     if (isLoading) {
         return <div>Loading...</div>
@@ -40,7 +39,7 @@ export function Home() {
                 <ToPicker />
                 <ChangeTheme />
             </div>
-            <RoutePickerComponent routes={data?.routes} />
+            <RoutePickerComponent direction={data} />
             <div id="map" className='w-[90%]  h-[600px]'></div>
             <MapComponent />
         </div>
