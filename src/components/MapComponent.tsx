@@ -16,9 +16,10 @@ export function MapComponent() {
     const MAPBOX_TOKEN = "pk.eyJ1IjoibmlraXRhLWdyeW5jaCIsImEiOiJjbGc3c3RrZnIwcXJrM3VwZHVpOGV6bGM3In0.-3pH-Qz2ddj8fi_Fh91sRQ";
     const [isMapLoaded, setIsMapLoaded] = useState<Boolean>(false);
     const [map, setMap] = useState<mapboxgl.Map | null>(null);
+    const [geometries, setGeometries] = useState<string[]>([]);
+    const [markers, setMarkers] = useState<string[]>([]);
 
     mapboxgl.accessToken = MAPBOX_TOKEN;
-    // let map: mapboxgl.Map; 
     useEffect(() => {
 
 
@@ -44,45 +45,68 @@ export function MapComponent() {
         console.log("from", from, "to", to, "route", route, "isMapLoaded", isMapLoaded, "map", map)
         if (!isMapLoaded || !map) return;
 
-        from.center && new Marker().setLngLat(from.center).addTo(map);
-        to.center && new Marker().setLngLat(to.center).addTo(map);
+        if (from.center && !markers.includes(from.center)) {
+            new Marker().setLngLat(from.center).addTo(map);
+            map.flyTo({
+                center: from.center,
+                essential: true,
+                zoom: 5
+            });
+        }
+        if (to.center) {
+            new Marker().setLngLat(to.center).addTo(map);
+        }
 
-
-
-        route?.geometry && map.addSource('route', {
-            'type': 'geojson',
-            'data': {
-                'type': 'Feature',
-                'properties': {},
-                'geometry': {
-                    'type': 'LineString',
-                    'coordinates': decodePolyline(route?.geometry, false),
+        if (route?.geometry && !geometries.includes(route?.geometry)) {
+            setGeometries([...geometries, route?.geometry]);
+            route?.geometry && map.addSource(route?.geometry + from.center + to.center, {
+                'type': 'geojson',
+                'data': {
+                    'type': 'Feature',
+                    'properties': {},
+                    'geometry': {
+                        'type': 'LineString',
+                        'coordinates': decodePolyline(route?.geometry, false),
+                    }
                 }
-            }
-        });
-        route?.geometry && console.log(decodePolyline(route?.geometry, false))
+            });
 
-        route?.geometry && map.addLayer({
-            'id': 'route',
-            'type': 'line',
-            'source': 'route',
-            'layout': {
-                'line-join': 'round',
-                'line-cap': 'round'
-            },
-            'paint': {
-                'line-color': '#f47089',
-                'line-width': 8
-            }
-        });
+            route?.geometry && console.log(decodePolyline(route?.geometry, false))
+
+            route?.geometry && map.addLayer({
+                'id': route?.geometry + from.center + to.center,
+                'type': 'line',
+                'source': route?.geometry + from.center + to.center,
+                'layout': {
+                    'line-join': 'round',
+                    'line-cap': 'round'
+                },
+                'paint': {
+                    'line-color': getLineColor(profile),
+                    'line-width': 8
+                }
+            });
+        }
+
     }, [isMapLoaded, from, to, route])
 
 
-
-
-
-
     return (<></>)
-
-
 }
+
+function getLineColor(profile: string) {
+    switch (profile) {
+        case "driving":
+            return "#f47089";
+        case "driving-traffic":
+            return "#68c7d9";
+        case "walking":
+            return "#ffaeae";
+        case "cycling":
+            return "#a3d3e5";
+        default:
+            return "#f47089";
+    }
+}
+
+

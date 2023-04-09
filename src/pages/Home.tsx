@@ -7,6 +7,7 @@ import { MapComponent } from '../components/MapComponent';
 import { RoutePickerComponent } from '../components/RoutePickerComponent';
 import { FromPicker } from '../components/FromPicker';
 import { ToPicker } from '../components/ToPicker';
+import { ChangeTheme } from '../components/ChangeTheme';
 
 export function Home() {
 
@@ -26,9 +27,10 @@ export function Home() {
     }
 
     return (
-        <div className="h-[100vh] flex flex-col items-center justify-center">
-            <div>
-                <select onChange={(e) => { dispatch(setProfile(e.target.value)) }}>
+        <div className=" flex flex-col items-center justify-center">
+            <div className='flex m-10 items-start'>
+                <select className='dark:bg-slate-700 bg-pink-100 p-2 rounded m-5'
+                    onChange={(e) => { dispatch(setProfile(e.target.value)) }}>
                     <option>driving</option>
                     <option>driving-traffic</option>
                     <option>walking</option>
@@ -36,15 +38,10 @@ export function Home() {
                 </select>
                 <FromPicker />
                 <ToPicker />
+                <ChangeTheme />
             </div>
             <RoutePickerComponent routes={data?.routes} />
-            <div id="map" className='w-[800px] h-[600px]'></div>
-            <div>
-                <p>{from.place_name}</p>
-                <p>{to.place_name}</p>
-                <p>{route?.geometry}</p>
-                <p>{profile}</p>
-            </div>
+            <div id="map" className='w-[90%]  h-[600px]'></div>
             <MapComponent />
         </div>
     )
